@@ -33,29 +33,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: ColorsTheme.transparent,statusBarIconBrightness: Brightness.dark));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: ColorsTheme().transparent,statusBarIconBrightness: Brightness.dark));
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: false,
-      builder: (context, child) {
+      builder: (BuildContext context, Widget? child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1)),
           child: GetMaterialApp(
             title: "Base Project",
-            color: ColorsTheme.primaryColor,
+            color: ColorsTheme().primaryColor,
             translations: LocalizationService(),
             locale: Locale(Get.find<LanguageController>().selectedLocale.value),
             fallbackLocale: Locale('en', 'US'),
-            textDirection: TextDirection.ltr,
-            defaultTransition: Transition.fadeIn,
             theme: ThemeData(
               useMaterial3: true,
               fontFamily: 'OpenSansRegular',
-              colorScheme: ColorScheme.fromSwatch().copyWith(
-                primary: ColorsTheme.primaryColor,
-                secondary: ColorsTheme.primaryColor,
-              ),
+              platform: TargetPlatform.iOS,
+              scaffoldBackgroundColor: ColorsTheme().backgroundColor,
             ),
             home: BottomBarScreen()
           ),

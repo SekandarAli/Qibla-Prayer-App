@@ -10,7 +10,7 @@ class ReusableWidgets {
     required String text,
   }) {
     return InkWell(
-      splashColor: ColorsTheme.pink,
+      splashColor: ColorsTheme().pink,
       borderRadius: BorderRadius.circular(10),
       onTap: (){
         onPress();
@@ -28,8 +28,8 @@ class ReusableWidgets {
     return Theme(
       data: ThemeData.light(useMaterial3: false),
       child: SizedBox(
-        width: 0.36.sh,
-        height: 48.sp,
+        width: 0.22.sh,
+        height: 40.sp,
         child: ElevatedButton(
           onPressed: (){
             HapticFeedback.lightImpact();
@@ -46,7 +46,7 @@ class ReusableWidgets {
             text,textAlign: TextAlign.center,
             maxLines: 1,
             style: TextStyle(
-              fontSize: 17.sp,
+              fontSize: 10.sp,
               fontWeight: FontWeight.bold,
               color: textColor,
               fontFamily: "OpenSansBold",),
@@ -66,7 +66,7 @@ class ReusableWidgets {
       data: ThemeData.light(useMaterial3: false),
       child: Material(
         borderRadius: BorderRadius.circular(30),
-        color: ColorsTheme.transparent,
+        color: ColorsTheme().transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(30),
           splashColor: bgColor,
@@ -113,7 +113,7 @@ class ReusableWidgets {
         ),
         behavior: SnackBarBehavior.fixed,
         duration: const Duration(milliseconds: 1200),
-        backgroundColor: ColorsTheme.primaryColor,
+        backgroundColor: ColorsTheme().primaryColor,
         padding: const EdgeInsets.symmetric(vertical: 3),
         elevation: 1,
         dismissDirection: DismissDirection.horizontal,

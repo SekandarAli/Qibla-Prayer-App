@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:namaz_timing_app/mvvm/view_model/controller/bottom_bar/bottom_bar_controller.dart';
 import '../../view_model/utils/color/color.dart';
 import '../../view_model/utils/styles/themeText.dart';
 import '../home/screen/home_screen.dart';
+import '../mosque/qibla_direction_screen.dart';
 
 class BottomBarScreen extends StatefulWidget {
   const BottomBarScreen({super.key});
@@ -24,7 +24,7 @@ class _BottomBarScreenState extends State<BottomBarScreen>
 
   final List<Widget> pages = [
     HomeScreen(),
-    Container(),
+    QiblaDirectionScreen(),
     Container(),
   ];
 
@@ -32,8 +32,7 @@ class _BottomBarScreenState extends State<BottomBarScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    _pageController =
-        PageController(initialPage: bottomBarController.selectedIndex.value);
+    _pageController = PageController(initialPage: bottomBarController.selectedIndex.value);
   }
 
   @override
@@ -48,7 +47,7 @@ class _BottomBarScreenState extends State<BottomBarScreen>
     bottomBarController.selectedIndex.value = index;
     _pageController.animateToPage(
       index,
-      duration: Duration(milliseconds: 5),
+      duration: Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
   }
@@ -65,42 +64,11 @@ class _BottomBarScreenState extends State<BottomBarScreen>
       canPop: false,
       onPopInvoked : _onPopScope,
       child: Scaffold(
-        backgroundColor: ColorsTheme.backgroundColor,
+        backgroundColor: ColorsTheme().backgroundColor,
         body: SafeArea(
           top: true,
           child: Column(
             children: [
-              Obx(() {
-                return Padding(
-                  padding: EdgeInsets.only(left: 15.sp, right: 15.sp, bottom: 15.sp, top: 0.sh),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                bottomBarController.selectedIndex.value == 0 ?
-                                "Home".tr : bottomBarController.selectedIndex.value == 1 ?
-                                "Mosque".tr : "Setting".tr,
-                                style: ThemeTexts.textStyleTitle7.copyWith(
-                                  fontFamily: "OpenSansBold",
-                                  fontSize: 23.sp,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5.sp,
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              }),
               Expanded(
                 child: PageView(
                   controller: _pageController,
@@ -118,43 +86,44 @@ class _BottomBarScreenState extends State<BottomBarScreen>
               child: Obx(() {
                 return BottomNavigationBar(
                   elevation: 20,
-                  backgroundColor: ColorsTheme.white,
+                  backgroundColor: ColorsTheme().white,
                   key: ValueKey<int>(bottomBarController.selectedIndex.value),
                   currentIndex: bottomBarController.selectedIndex.value,
                   onTap: changePage,
-                  selectedItemColor: ColorsTheme.primaryColor,
-                  unselectedItemColor: ColorsTheme.grey,
+                  selectedItemColor: ColorsTheme().primaryColor,
+                  unselectedItemColor: ColorsTheme().grey,
                   type: BottomNavigationBarType.fixed,
-                  unselectedFontSize: 10,
-                  selectedLabelStyle: ThemeTexts.textStyleTitle9
-                      .copyWith(fontFamily: "OpenSansRegular", fontSize: 11),
+                  unselectedFontSize: 12,
+                  iconSize: 25,
+                  unselectedIconTheme: IconThemeData(size: 20),
+                  selectedLabelStyle: ThemeTexts.textStyleTitle9.copyWith(fontFamily: "OpenSansRegular", fontSize: 13),
                   items: [
                     BottomNavigationBarItem(
-                      tooltip: "home".tr,
-                      activeIcon: Icon(Icons.home_filled),
+                      tooltip: "Home".tr,
+                      activeIcon: Icon(Icons.home_rounded),
                       icon: Icon(
-                        Icons.home_filled,
-                        color: ColorsTheme.grayishColor,
+                        Icons.home_rounded,
+                        color: ColorsTheme().grayishColor,
                       ),
-                      label: 'home'.tr,
+                      label: 'Home'.tr,
                     ),
                     BottomNavigationBarItem(
-                      tooltip: "mosque".tr,
+                      tooltip: "Mosque".tr,
                       activeIcon: Icon(Icons.mosque),
                       icon: Icon(
                         Icons.mosque,
-                        color: ColorsTheme.grayishColor,
+                        color: ColorsTheme().grayishColor,
                       ),
-                      label: 'mosque'.tr,
+                      label: 'Mosque'.tr,
                     ),
                     BottomNavigationBarItem(
-                      tooltip: "setting".tr,
+                      tooltip: "Setting".tr,
                       activeIcon: Icon(Icons.settings),
                       icon: Icon(
                         Icons.settings,
-                        color: ColorsTheme.grayishColor,
+                        color: ColorsTheme().grayishColor,
                       ),
-                      label: 'setting'.tr,
+                      label: 'Setting'.tr,
                     ),
                   ],
                 );
